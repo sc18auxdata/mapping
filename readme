@@ -1,2 +1,12 @@
 Examples of mapfiles
 
+Example 1:
+
+N4R32_r3 - An example custom mapfile for 4 nodes with 32 cores/node and s:a ratio of 3:1
+Total number of cores = 128
+M=96, N=32
+The simulation ranks (0:95) are placed on first 24 cores of each of the 4 nodes
+The analysis ranks (96:127) are placed on last 8 cores of each of the 4 nodes
+
+
+
