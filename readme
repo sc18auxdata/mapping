@@ -1,12 +1,32 @@
-Examples of mapfiles
+Below are some examples of mapfiles. We use Python scripts to generate these mapfiles, based on the #nodes, #cores/node and s:a ratio.
+-------------------------------------------------------------------------
 
-Example 1:
+Example 1: Cray systems (Theta/Cori)
 
-N4R32_r3 - An example custom mapfile for 4 nodes with 32 cores/node and s:a ratio of 3:1
+Cray_N4R32_r3
+
+An example custom mapfile for 4 nodes with 32 cores/node and s:a ratio of 3:1
 Total number of cores = 128
 M=96, N=32
-The simulation ranks (0:95) are placed on first 24 cores of each of the 4 nodes
-The analysis ranks (96:127) are placed on last 8 cores of each of the 4 nodes
+Each line represents ordered core numbers (0:31) on each node. Value in each line is the rank placed on the corresponding core.
+In this mapping, the simulation ranks (0:95) are placed on first 24 cores of each of the 4 nodes, and the analysis ranks (96:127) are placed on last 8 cores of each of the 4 nodes.
 
+To use this mapfile, set MPICH_RANK_REORDER_METHOD=3, and rename/copy Cray_N4R32_r3 to MPICH_RANK_ORDER file.
 
+-------------------------------------------------------------------------
 
+Example 2: BG/Q systems (Mira)
+
+BGQ_N512R16_3  
+
+An example custom mapfile for 512 nodes with 16 cores/node and s:a ratio of 3:1
+Total number of cores = 8192
+M=6144, N=2048
+Each line represents the rank number. Values in each line are the torus coordinates <A,B,C,D,E,T> of the rank number, which represents the core on which the rank is placed.
+In this mapping, the simulation ranks (0:6143) are placed on first 12 cores of each node, and the analysis ranks (6144:8191) are placed on last 4 cores of each node.
+
+To use this mapfile, set RUNJOB_MAPPING to BGQ_N512R16_3 in the job command line.
+
+Link to prepare mapfiles on BG/Q systems - https://www.alcf.anl.gov/user-guides/running-jobs-bgq#how-do-i-change-the-physical-layout-(mapping)-of-mpi-tasks-in-my-job?
+
+-------------------------------------------------------------------------
